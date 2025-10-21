@@ -7,11 +7,12 @@ export const collections = {
 		loader: glob({ base: './src/content/blog', pattern: '**/*.md' }),
 		schema: z.object({
 			title: z.string(),
-			description: z.string(),
+			description: z.string().default(''),
 			publishDate:  z.coerce.date(),
-			tags: z.array(z.string()),
-			img: z.string(),
+			tags: z.array(z.string()).default(['General']),
+			img: z.string().default('/assets/stock-3.jpg'),
 			img_alt: z.string().optional(),
+			draft: z.boolean().default(false),
 		}),
 	}),
 };

@@ -1,0 +1,89 @@
+---
+import { type CollectionEntry, getCollection, render } from 'astro:content';
+import Grid from '../../components/Grid.astro';
+import Hero from '../../components/Hero.astro';
+import PortfolioPreview from '../../components/PortfolioPreview.astro';
+import Pagination from '../../components/Pagination.astro';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+
+interface Props {
+	blogs: CollectionEntry<'blog'>;
+	totalPages: number;
+	slug: number;
+}
+
+// This is a dynamic route that generates a page for every Markdown file in src/content/
+// Read more about dynamic routes and this `getStaticPaths` function in the Astro docs:
+// https://docs.astro.build/en/core-concepts/routing/#dynamic-routes
+export async function getStaticPaths() {
+	const projects = (await getCollection('blog')).sort(
+		(a, b) => b.data.publishDate.valueOf() - a.data.publishDate.valueOf(),
+	).filter((post) => !post.data.draft);
+
+	// Split projects into chunks of maximum 10 items
+	const chunkSize = 10;
+	const projectChunks = [];
+	const totalPages = Math.ceil(projects.length / chunkSize);
+
+	for (let i = 1; i < projects.length; i += 1) {
+		projectChunks.push(
+			{
+				slug: i,
+				blogs: projects.slice(((i-1) * chunkSize), i * chunkSize),
+				totalPages: totalPages
+			});
+	}
+
+	
+	// return projectChunks;
+	return projectChunks.map(({ slug, blogs, totalPages }) => {
+		return {
+		params: { slug },
+		props: { blogs, totalPages },
+		};
+  });
+}
+
+
+const { blogs, totalPages } = Astro.props;
+//const { Content } = await render(blogs);
+
+console.log(blogs);
+---
+
+<BaseLayout
+	title="My blog | Kevin McDonnell"
+	description="Learn about Kevin McDonnell's recent areas of interest"
+>
+	<div class="stack gap-20">
+		
+	</div>
+	<div class="stack gap-20">
+		<main class="wrapper stack gap-8">
+			<Hero
+				title="Blog posts"
+				align="start"
+			/>
+			<Pagination 
+			currentPage={Number(Astro.params.slug)} 
+			totalPages={Astro.props.totalPages}
+			baseUrl="/posts"
+		/>
+			<Grid variant="offset">
+				{
+					blogs.map((blog) => (
+						<li>
+							<PortfolioPreview project={blog} />
+						</li>
+					))
+				}
+			</Grid>
+			<Pagination 
+			currentPage={Number(Astro.params.slug)} 
+			totalPages={Astro.props.totalPages}
+			baseUrl="/posts"
+		/>
+		</main>
+	</div>
+
+</BaseLayout>

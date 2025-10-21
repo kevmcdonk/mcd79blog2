@@ -7,7 +7,7 @@ img: /assets/2022/09/AlignedTransparent.jpg
 img_alt: Pearls of silky soft white cotton, bubble up under vibrant lighting
 tags:
  - Viva
-
+draft: false
 ---
 
 img: /assets/2022/09/AlignedTransparent.jpg

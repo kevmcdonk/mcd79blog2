@@ -6,16 +6,17 @@ import ThemeToggle from './ThemeToggle.astro';
 /** Main menu items */
 const textLinks: { label: string; href: string }[] = [
 	{ label: 'Home', href: '/' },
-	{ label: 'Blog', href: '/blog/' },
+	{ label: 'Blog', href: '/posts/1' },
 	{ label: 'About', href: '/about/' },
 ];
 
 /** Icon links to social media — edit these with links to your profiles! */
 const iconLinks: { label: string; href: string; icon: keyof typeof iconPaths }[] = [
-	{ label: 'Twitter', href: 'https://twitter.com/me', icon: 'twitter-logo' },
-	{ label: 'GitHub', href: 'https://github.com/me', icon: 'github-logo' },
-	{ label: 'LinkedIn', href: 'https://www.linkedin.com/in/me/', icon: 'linkedin-logo' },
-	{ label: 'YouTube', href: 'https://www.youtube.com/@me/', icon: 'youtube-logo' },
+	{ label: 'LinkedIn', href: 'https://www.linkedin.com/in/kevmcdonnell/', icon: 'linkedin-logo' },	
+	{ label: 'Bluesky', href: 'https://bsky.app/profile/kevmcdonk.com', icon: 'bluesky-logo' },
+	{ label: 'GitHub', href: 'https://github.com/kevmcdonk', icon: 'github-logo' },
+	
+	{ label: 'YouTube', href: 'https://www.youtube.com/@mcd79/', icon: 'youtube-logo' },
 ];
 
 /** Test if a link is pointing to the current page. */
@@ -143,7 +144,7 @@ const isCurrentPage = (href: string) => {
 		position: relative;
 		font-family: var(--font-brand);
 		font-weight: 500;
-		margin-bottom: 3.5rem;
+		margin-bottom: 0.5rem;
 	}
 
 	.menu-header {

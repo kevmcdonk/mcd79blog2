@@ -1,0 +1,10 @@
+{
+	"version": "2.0.0",
+	"tasks": [
+		{
+			"label": "node-check-images",
+			"type": "shell",
+			"command": "node ./scripts/check-image-paths.js"
+		}
+	]
+}
